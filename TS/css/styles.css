@@ -1,0 +1,47 @@
+/* use this to put borders around things... */
+.thin_border{
+  border: 2px solid black;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+ 
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.upload-btn-wrapper {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+  }
+  
+  .btn {
+	border: 2px solid gray;
+	color: gray;
+	background-color: lightgray;
+	padding: 8px 20px;
+	border-radius: 8px;
+	font-size: 20px;
+	font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+  }
+
+body { 
+	font-family: sans-serif, serif;
+}
+
+i {
+	font-family: FontAwesome;
+	font-style: normal;
+}

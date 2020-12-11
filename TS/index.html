@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="transcriptionApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/controller.js"></script>
+
+
+</head>
+<body>
+    <div class="container">
+		<h1>Transcription</h1>
+
+		<div class="row">
+			<div class="col-md-9 thin_border">
+                <div class="upload-btn-wrapper" id="test">
+                    <button class="btn">Choose audio/video</button>
+                    <input id="newFile" name="localfile" size="50" maxlength="100000" accept="audio/*,video/*" type="file" onchange="loadLocalVideo();">
+                </div>
+
+                <video width = "480" height = "240" muted controls id="videoLocal">
+                    <source id="currentVideo" src="">
+                </video>
+			</div>
+			
+        </div>
+
+        <!--div class="row">
+            <video width = "480" height = "240" muted controls id="videoLocal" >
+                <source id="currentVideo" src="">
+            </video>
+            
+        </div-->
+
+        <div class="row">
+            <button onclick="playVideo();" title="Play/Pause"><i class="fas fa-play fa-sm" id="pausePlay"></i> ESC</button>
+            <button onclick="slowDown();" title="Slow down"><i class="fas fa-angle-double-down fa-sm"></i> F1</button>
+            <button onclick="speedUp();" title="Speed up"><i class="fas fa-angle-double-up fa-sm"></i> F2</button>
+            <button onclick="rewind();" title="Rewind"><i class="fas fa-backward fa-sm"></i> F3</button>
+            <button onclick="forward();" title="Forward"><i class="fas fa-forward fa-sm"></i> F4</button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+
+            </div>
+        </div>
+	</div>
+    
+</body>
+<script src="js/file.js"></script>
+</html>
