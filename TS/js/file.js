@@ -1,5 +1,6 @@
 playing = false;
 document.getElementById("videoLocal").style.display = "none";
+document.getElementById("controls").style.display = "none";
 
 window.document.addEventListener('keydown', (e) => {
     e.preventDefault();
@@ -23,12 +24,14 @@ function loadLocalVideo() {
     var selectedLocalVideo = document.getElementById("newFile").files[0];
     currentVideo.setAttribute("src", URL.createObjectURL(selectedLocalVideo));
     var divElement = document.getElementById("test");
+    
     if (divElement.style.display === "none") {
         divElement.style.display = "block";
     } else {
-        divElement.style.display = "none";
+        divElement.style.display = "none";    
     }
     document.getElementById("videoLocal").style.display = "block";
+    document.getElementById("controls").style.display = "block";
     player.load();
     player.play();
     playing = true;
@@ -49,12 +52,6 @@ function playVideo() {
     }
     
 }
-
-/*function pauseVideo() {
-    var videofile = document.getElementById("videoLocal");
-    videofile.playbackRate = 1.0;
-    videofile.pause();
-}*/
 
 function slowDown() {
     var videofile = document.getElementById("videoLocal");

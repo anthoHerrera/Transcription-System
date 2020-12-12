@@ -45,3 +45,15 @@ i {
 	font-family: FontAwesome;
 	font-style: normal;
 }
+
+#controls {
+	margin-left: 5rem;
+}
+
+#videoLocal {
+	margin-bottom: 15px;
+}
+
+#re, #sl, #pp, #su, #fw {
+	margin-right: 20px;
+}

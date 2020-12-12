@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="transcriptionApp">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transcription</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/controller.js"></script>
-
 
 </head>
 <body>
@@ -28,30 +25,18 @@
                 <video width = "480" height = "240" muted controls id="videoLocal">
                     <source id="currentVideo" src="">
                 </video>
+
+                <div class="row" id="controls">
+                    <button onclick="rewind();" title="Rewind" id="re"><i class="fas fa-undo fa-sm"></i> F3</button>
+                    <button onclick="slowDown();" title="Slow down" id="sl"><i class="fas fa-backward fa-sm fa-sm"></i> F1</button>
+                    <button onclick="playVideo();" title="Play/Pause" id="pp"><i class="fas fa-pause-circle" id="pausePlay"></i> ESC</button>
+                    <button onclick="speedUp();" title="Speed up" id="su"><i class="fas fa-forward fa-sm"></i> F2</button>
+                    <button onclick="forward();" title="Forward" id="fw"><i class="fas fa-redo fa-sm"></i> F4</button>
+                </div>
 			</div>
 			
         </div>
 
-        <!--div class="row">
-            <video width = "480" height = "240" muted controls id="videoLocal" >
-                <source id="currentVideo" src="">
-            </video>
-            
-        </div-->
-
-        <div class="row">
-            <button onclick="playVideo();" title="Play/Pause"><i class="fas fa-play fa-sm" id="pausePlay"></i> ESC</button>
-            <button onclick="slowDown();" title="Slow down"><i class="fas fa-angle-double-down fa-sm"></i> F1</button>
-            <button onclick="speedUp();" title="Speed up"><i class="fas fa-angle-double-up fa-sm"></i> F2</button>
-            <button onclick="rewind();" title="Rewind"><i class="fas fa-backward fa-sm"></i> F3</button>
-            <button onclick="forward();" title="Forward"><i class="fas fa-forward fa-sm"></i> F4</button>
-        </div>
-
-        <div class="row">
-            <div class="col-md-8">
-
-            </div>
-        </div>
 	</div>
     
 </body>
