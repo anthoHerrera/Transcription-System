@@ -1,121 +1,54 @@
-playing = false;
+var playing = false;
+var rewind_value = 3.0;
+var forward_value = 3.0;
+var slow_value = 0.5;
+var speed_value = 2.0;
+
+var keyPlayPause = 'esc';
+var keyslow = 'f1';
+var keySpeed = 'f2';
+var keyRewind = 'f3';
+var keyForward = 'f4';
+
 document.getElementById("videoLocal").style.display = "none";
 document.getElementById("controls").style.display = "none";
-document.getElementById("message").style.display = "none";
 
+document.getElementById('pauseKey').innerHTML = '<strong>' + keyPlayPause.toUpperCase() + '</strong>';
+document.getElementById('slowKey').innerHTML = '<strong>' + keyslow.toUpperCase() + '</strong>';
+document.getElementById('speedKey').innerHTML = '<strong>' + keySpeed.toUpperCase() + '</strong>';
+document.getElementById('rewindKey').innerHTML = '<strong>' + keyRewind.toUpperCase() + '</strong>';
+document.getElementById('forwardKey').innerHTML = '<strong>' + keyForward.toUpperCase() + '</strong>';
 
-playBtn     = 'Escape'
-slowBtn     = 'F1'
-speedBtn    = 'F2'
-rwBtn       = 'F3'
-fwBtn       = 'F4'
-
-
-
-window.document.addEventListener('keydown', manejarControles );
-
-function manejarControles(e){
+window.document.addEventListener('keydown', (e) => {
     e.preventDefault();
-    if(e.key == playBtn  ) {
+    Mousetrap.bind(window.keyPlayPause, function() {
         playVideo();
-    }else if(e.key == slowBtn) {
+    });
+    Mousetrap.bind(keyslow, function() {
         slowDown();
-    }else if(e.key == speedBtn) {
+    });
+    Mousetrap.bind(keySpeed, function() {
         speedUp();
-    }else if(e.key == rwBtn) {
+    });
+    Mousetrap.bind(keyRewind, function() {
         rewind();
-    }else if(e.key == fwBtn) {
+    });
+    Mousetrap.bind(window.keyForward, function() {
         forward();
-    }
+    });
+    /*if(e.key == 'Escape' ) {
+        playVideo();
+    }else if(e.key == 'F1') {
+        slowDown();
+    }else if(e.key == 'F2') {
+        speedUp();
+    }else if(e.key == 'F3') {
+        rewind();
+    }else if(e.key == 'F4') {
+        forward();
+    }*/
 
-}
-
-
-idRecibido=''
-function manejarBotonesModal(valor){
-    window.document.removeEventListener('keydown', manejarControles );
-    
-    idRecibido=valor;
-    console.log(idRecibido);
-    document.getElementById("message").style.display = "block";
-    window.document.addEventListener('keydown', obtenerPress );
-}
-
-function obtenerPress(e){
-    console.log(e.key)
-    if(idRecibido=='re'){
-        rwBtn=e.key;
-    }else if(idRecibido=='sl') {
-        slowBtn=e.key;
-    }else if(idRecibido=='pp'){
-        playBtn=e.key;
-    }else if(idRecibido=='su'){
-        speedBtn=e.key;
-    }else if(idRecibido=='fw'){
-        fwBtn=e.key;
-    }
-    document.getElementById("message").style.display = "none";
-    setLabels();
-    window.document.removeEventListener('keydown', obtenerPress );
-    window.document.addEventListener('keydown',  manejarControles);
-}
-
-$(document).ready(function(){
-  $("#myBtn").click(function(){
-    $("#myModal").modal();
-  });
 });
-
-
-function setLabelsBtn(){
-    var re = document.getElementById("re");
-    var t1 = document.createTextNode(rwBtn);
-    re.appendChild(t1);
-
-    var sl = document.getElementById("sl");
-    var t2 = document.createTextNode(slowBtn);
-    sl.appendChild(t2);
-
-    var pp = document.getElementById("pp");
-    var t3 = document.createTextNode(playBtn);
-    pp.appendChild(t3);
-
-    var su = document.getElementById("su");
-    var t4 = document.createTextNode(speedBtn);
-    su.appendChild(t4);
-
-    var fw = document.getElementById("fw");
-    var t5= document.createTextNode(fwBtn);
-    fw.appendChild(t5);
-}
-
-function setLabelsMdl(){
-    var re = document.getElementById("p-re");
-    var t1 = document.createTextNode(rwBtn);
-    re.appendChild(t1);
-
-    var sl = document.getElementById("p-sl");
-    var t2 = document.createTextNode(slowBtn);
-    sl.appendChild(t2);
-
-    var pp = document.getElementById("p-pp");
-    var t3 = document.createTextNode(playBtn);
-    pp.appendChild(t3);
-
-    var su = document.getElementById("p-su");
-    var t4 = document.createTextNode(speedBtn);
-    su.appendChild(t4);
-
-    var fw = document.getElementById("p-fw");
-    var t5= document.createTextNode(fwBtn);
-    fw.appendChild(t5);
-}
-
-function setLabels(){
-    setLabelsBtn();
-    setLabelsMdl();
-}
-
 
 function loadLocalVideo() {
     var player = document.getElementById("videoLocal");
@@ -140,6 +73,8 @@ function loadLocalVideo() {
 function playVideo() {
     var videofile = document.getElementById("videoLocal");
     videofile.playbackRate = 1.0;
+    //console.log(formatTime(videofile.currentTime)); timestamp
+    
     if(playing) {
         document.getElementById("pausePlay").className = "fas fa-play";
         videofile.pause();
@@ -154,19 +89,34 @@ function playVideo() {
 
 function slowDown() {
     var videofile = document.getElementById("videoLocal");
-    videofile.playbackRate = 0.5;
+    console.log( window.slow_value);
+    videofile.playbackRate = window.slow_value;
 }
 function speedUp() {
     var videofile = document.getElementById("videoLocal");
-    videofile.playbackRate = 2.0;
+    console.log(window.speed_value);
+    videofile.playbackRate = window.speed_value;
 }
 
 function rewind() {
     var videofile = document.getElementById("videoLocal");
-    videofile.currentTime -= 5.0;
+    console.log(window.rewind_value);
+    videofile.currentTime -= window.rewind_value;
 }
 
 function forward() {
     var videofile = document.getElementById("videoLocal");
-    videofile.currentTime += 5.0;
+    console.log(window.forward_value);
+    videofile.currentTime += window.forward_value;
+}
+
+function formatTime(seconds) {
+    hours = Math.floor(seconds / 3600);
+    hours = (hours >= 10) ? hours : "0" + hours;
+    sec = seconds % 3600
+    minutes = Math.floor(sec / 60);
+    minutes = (minutes >= 10) ? minutes : "0" + minutes;
+    seconds = Math.floor(sec % 60);
+    seconds = (seconds >= 10) ? seconds : "0" + seconds;
+    return hours + ":" + minutes + ":" + seconds;
 }

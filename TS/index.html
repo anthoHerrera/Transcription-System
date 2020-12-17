@@ -4,89 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transcription</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <script src="js/jquery-3.5.1.min.js"></script>
-    <!-- <script src="js/bootstrap.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="js/mousetrap.min.js"></script>
+    <script src="js/mousetrap-record.min.js"></script>
 
 </head>
-<body onload="setLabels();">
+<body>
     <div class="container">
 		<h1>Transcription</h1>
 
 		<div class="row">
-			<div class="col-md-9 thin_border">
-                <div class="upload-btn-wrapper" id="test">
-                    <button class="btn">Choose audio/video</button>
-                    <input id="newFile" name="localfile" size="50" maxlength="100000" accept="audio/*,video/*" type="file" onchange="loadLocalVideo();">
+            <div class="col-md-10 thin_border">
+                <div class="col-md-9">
+                    <div class="upload-btn-wrapper" id="test">
+                        <button class="bton">Choose audio/video</button>
+                        <input id="newFile" name="localfile" size="50" maxlength="100000" accept="audio/*,video/*" type="file" onchange="loadLocalVideo();">
+                    </div>
+    
+                    <video width = "480" height = "240" muted controls id="videoLocal">
+                        <source id="currentVideo" src="">
+                    </video>
+    
+                    <div class="row" id="controls">
+                        <button onclick="rewind();" title="Rewind" id="re"><i class="fas fa-undo fa-sm"></i> F3</button>
+                        <button onclick="slowDown();" title="Slow down" id="sl"><i class="fas fa-backward fa-sm fa-sm"></i> F1</button>
+                        <button onclick="playVideo();" title="Play/Pause" id="pp"><i class="fas fa-pause-circle" id="pausePlay"></i> ESC</button>
+                        <button onclick="speedUp();" title="Speed up" id="su"><i class="fas fa-forward fa-sm"></i> F2</button>
+                        <button onclick="forward();" title="Forward" id="fw"><i class="fas fa-redo fa-sm"></i> F4</button>
+                    </div>
+                    
                 </div>
-
-                <video width = "480" height = "240" muted controls id="videoLocal">
-                    <source id="currentVideo" src="">
-                </video>
-
-                <div class="row" id="controls">
-                    <button onclick="rewind();" title="Rewind" id="re"><i class="fas fa-undo fa-sm"></i> </button>
-                    <button onclick="slowDown();" title="Slow down" id="sl"><i class="fas fa-backward fa-sm fa-sm"></i></button>
-                    <button onclick="playVideo();" title="Play/Pause" id="pp"><i class="fas fa-pause-circle" id="pausePlay"></i></button>
-                    <button onclick="speedUp();" title="Speed up" id="su"><i class="fas fa-forward fa-sm"></i></button>
-                    <button onclick="forward();" title="Forward" id="fw"><i class="fas fa-redo fa-sm"></i></button>
+                <div class="col-md-3">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown" >
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog fa-2x"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a data-toggle="modal" data-target="#myModal">Video</a></li>
+                                <li><a data-toggle="modal" data-target="#myModal2">Keyboard Shorcuts</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-			</div>
-            <div>
-                <button type="button" class="btn btn-info btn-lg" id="myBtn"><i class="fas fa-cog fa-sm"></i></button>
-            </div>  
+            </div>
+			
+            
 			
         </div>
 
+        <!-- Modal video-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Video Settings</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="inputRewind" class="col-sm-4 col-form-label">Rewind interval</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="inputRewind" id="input_rewind" min="0">
+                            </div> 
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputForward" class="col-sm-4 col-form-label">Forward interval </label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="inputForward" id="input_forward" min="0">
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputSlow" class="col-sm-4 col-form-label">Slow down </label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="inputSlow" id="input_slow" step="0.5" min="0">
+                            </div>
+                            
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputFast" class="col-sm-4 col-form-label">Speed up </label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="inputFast" id="input_fast" step="0.5" min="0">
+                            </div> 
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button onclick="updateVideoSettings();" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal shorcuts-->
+        <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Keyboard Shortcuts Settings</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="inputPause" class="col-sm-6 col-form-label text-right">Pause/resume</label>
+                               
+                            </div>
+                            <div class="col-sm-4">
+                                <p id="pauseKey"></p>
+                            </div>
+                            
+                            <button onclick="recordSequence()" type="button" class="btn btn-primary btn-sm" id="pauseBtn">Change Key</button>
+                            
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="inputSlowKey" class="col-sm-6 col-form-label text-right">Slow Down</label>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <p id="slowKey"></p>
+                            </div>
+                            
+                            <button onclick="recordSequence5()" type="button" class="btn btn-primary btn-sm" id="slowBtn">Change Key</button>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="inputFastKey" class="col-sm-6 col-form-label text-right">Speed up </label>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <p id="speedKey"></p> 
+                            </div>
+                            
+                            <button onclick="recordSequence4()" type="button" class="btn btn-primary btn-sm" id="speedBtn">Change Key</button>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="inputRewindKey" class="col-sm-6 col-form-label text-right">Rewind </label>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <p id="rewindKey"></p>
+                            </div>
+                            
+                            <button onclick="recordSequence3()" type="button" class="btn btn-primary btn-sm" id="rewindBtn">Change Key</button>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="inputForwardKey" class="col-sm-6 col-form-label text-right">Forward </label>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <p id="forwardKey"></p>
+                            </div>
+                            
+                            <button onclick="recordSequence2()" type="button" class="btn btn-primary btn-sm" id="forwardBtn">Change Key</button>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button onclick="updateVideoSettings();" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
 	</div>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
     
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Settings</h4>
-        </div>
-        <div class="modal-body">
-                <p id="message">Press a button to change...</p>
-                <div class="modal-div row">      
-                    <button onclick="manejarBotonesModal('re')" title="Rewind" id="md-re"><i class="fas fa-undo fa-sm"></i></button>
-                    <p id="p-re"></p>
-                </div>
-                <div class="modal-div row">    
-                    <button onclick="manejarBotonesModal('sl')" title="Slow down" id="md-sl"><i class="fas fa-backward fa-sm fa-sm"></i></button>
-                    <p id="p-sl"></p>
-                </div>
-                <div class="modal-div row">    
-                    <button onclick="manejarBotonesModal('pp')" title="Play/Pause" id="md-pp"><i class="fas fa-pause-circle" id="pausePlay"></i></button>
-                    <p id="p-pp"></p>
-                </div>
-                <div class="modal-div row">    
-                    <button onclick="manejarBotonesModal('su')" title="Speed up" id="md-su"><i class="fas fa-forward fa-sm"></i></button>
-                    <p id="p-su"></p>
-                </div>
-                <div class="modal-div row">    
-                    <button onclick="manejarBotonesModal('fw')" title="Forward" id="md-fw"><i class="fas fa-redo fa-sm"></i></button>
-                    <p id="p-fw"></p>
-                </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-
-
-
 </body>
 <script src="js/file.js"></script>
+<script src="js/menus.js"></script>
 </html>

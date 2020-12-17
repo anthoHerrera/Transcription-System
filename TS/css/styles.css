@@ -19,7 +19,7 @@
 	display: inline-block;
   }
   
-  .btn {
+  .bton {
 	border: 2px solid gray;
 	color: gray;
 	background-color: lightgray;
@@ -47,7 +47,7 @@ i {
 }
 
 #controls {
-	margin-left: 5rem;
+	margin-left: 6rem;
 }
 
 #videoLocal {
@@ -55,13 +55,5 @@ i {
 }
 
 #re, #sl, #pp, #su, #fw {
-	margin-right: 20px; 
-}
-
-.modal-div{
-	margin-top: 10px;
-}
-
-#message{
-	color: red;
+	margin-right: 20px;
 }
