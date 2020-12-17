@@ -1,22 +1,121 @@
 playing = false;
 document.getElementById("videoLocal").style.display = "none";
 document.getElementById("controls").style.display = "none";
+document.getElementById("message").style.display = "none";
 
-window.document.addEventListener('keydown', (e) => {
+
+playBtn     = 'Escape'
+slowBtn     = 'F1'
+speedBtn    = 'F2'
+rwBtn       = 'F3'
+fwBtn       = 'F4'
+
+
+
+window.document.addEventListener('keydown', manejarControles );
+
+function manejarControles(e){
     e.preventDefault();
-    if(e.key == 'Escape' ) {
+    if(e.key == playBtn  ) {
         playVideo();
-    }else if(e.key == 'F1') {
+    }else if(e.key == slowBtn) {
         slowDown();
-    }else if(e.key == 'F2') {
+    }else if(e.key == speedBtn) {
         speedUp();
-    }else if(e.key == 'F3') {
+    }else if(e.key == rwBtn) {
         rewind();
-    }else if(e.key == 'F4') {
+    }else if(e.key == fwBtn) {
         forward();
     }
 
+}
+
+
+idRecibido=''
+function manejarBotonesModal(valor){
+    window.document.removeEventListener('keydown', manejarControles );
+    
+    idRecibido=valor;
+    console.log(idRecibido);
+    document.getElementById("message").style.display = "block";
+    window.document.addEventListener('keydown', obtenerPress );
+}
+
+function obtenerPress(e){
+    console.log(e.key)
+    if(idRecibido=='re'){
+        rwBtn=e.key;
+    }else if(idRecibido=='sl') {
+        slowBtn=e.key;
+    }else if(idRecibido=='pp'){
+        playBtn=e.key;
+    }else if(idRecibido=='su'){
+        speedBtn=e.key;
+    }else if(idRecibido=='fw'){
+        fwBtn=e.key;
+    }
+    document.getElementById("message").style.display = "none";
+    setLabels();
+    window.document.removeEventListener('keydown', obtenerPress );
+    window.document.addEventListener('keydown',  manejarControles);
+}
+
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    $("#myModal").modal();
+  });
 });
+
+
+function setLabelsBtn(){
+    var re = document.getElementById("re");
+    var t1 = document.createTextNode(rwBtn);
+    re.appendChild(t1);
+
+    var sl = document.getElementById("sl");
+    var t2 = document.createTextNode(slowBtn);
+    sl.appendChild(t2);
+
+    var pp = document.getElementById("pp");
+    var t3 = document.createTextNode(playBtn);
+    pp.appendChild(t3);
+
+    var su = document.getElementById("su");
+    var t4 = document.createTextNode(speedBtn);
+    su.appendChild(t4);
+
+    var fw = document.getElementById("fw");
+    var t5= document.createTextNode(fwBtn);
+    fw.appendChild(t5);
+}
+
+function setLabelsMdl(){
+    var re = document.getElementById("p-re");
+    var t1 = document.createTextNode(rwBtn);
+    re.appendChild(t1);
+
+    var sl = document.getElementById("p-sl");
+    var t2 = document.createTextNode(slowBtn);
+    sl.appendChild(t2);
+
+    var pp = document.getElementById("p-pp");
+    var t3 = document.createTextNode(playBtn);
+    pp.appendChild(t3);
+
+    var su = document.getElementById("p-su");
+    var t4 = document.createTextNode(speedBtn);
+    su.appendChild(t4);
+
+    var fw = document.getElementById("p-fw");
+    var t5= document.createTextNode(fwBtn);
+    fw.appendChild(t5);
+}
+
+function setLabels(){
+    setLabelsBtn();
+    setLabelsMdl();
+}
+
 
 function loadLocalVideo() {
     var player = document.getElementById("videoLocal");
