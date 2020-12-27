@@ -55,10 +55,6 @@ window.document.addEventListener('keydown', (e) => {
         forward();
         return false;
     });
-    Mousetrap.bind(window.keyForward, function() {
-        forward();
-        return false;
-    });
     
 });
 
