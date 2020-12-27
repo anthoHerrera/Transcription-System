@@ -1,3 +1,6 @@
+//keycodes
+var dict_keysCodes = {'esc': 27, 'right': 39, 'left': 37, 'up': 38, 'down': 40, 'f1': 112, 'f2': 113,
+    'f3': 114, 'f4': 115, 'f5': 116, 'f6': 117, 'f7': 118, 'f8': 119, 'f9': 120, 'f10': 121, 'f11': 122, 'f12': 123};
 //default values
 document.getElementById('input_rewind').value = window.rewind_value;
 document.getElementById('input_forward').value = window.forward_value;
@@ -17,7 +20,7 @@ function recordSequence() {
     document.getElementById('pauseBtn').innerHTML = 'Press any key';
     Mousetrap.record(function(sequence) {
         Mousetrap.unbind(window.keyPlayPause);
-        window.keyPlayPause = sequence.join(' ');
+        window.keyPlayPause = sequence.join(' ');   
         console.log(window.keyPlayPause);
         document.getElementById('pauseKey').innerHTML = '<strong>' + window.keyPlayPause.toUpperCase() + '</strong>';
         document.getElementById('pauseBtn').innerHTML = 'Change Key';
@@ -33,7 +36,7 @@ function recordSequence2() {
         console.log(window.keyForward);
         document.getElementById('forwardKey').innerHTML = '<strong>' + window.keyForward.toUpperCase() + '</strong>';
         document.getElementById('forwardBtn').innerHTML = 'Change Key';
-        document.getElementById('fw').innerHTML = '<i class="fas fa-forward fa-sm"></i> ' + window.keyForward.toUpperCase()
+        document.getElementById('fw').innerHTML = '<i class="fas fa-redo fa-sm"></i> ' + window.keyForward.toUpperCase();
     });
 }
 
@@ -45,7 +48,7 @@ function recordSequence3() {
         console.log(window.keyRewind);
         document.getElementById('rewindKey').innerHTML = '<strong>' + window.keyRewind.toUpperCase() + '</strong>';
         document.getElementById('rewindBtn').innerHTML = 'Change Key';
-        document.getElementById('re').innerHTML = '<i class="fas fa-undo fa-sm"></i> ' + window.keyRewind.toUpperCase()
+        document.getElementById('re').innerHTML = '<i class="fas fa-undo fa-sm"></i> ' + window.keyRewind.toUpperCase();
     });
 }
 
@@ -57,7 +60,8 @@ function recordSequence4() {
         console.log(window.keySpeed);
         document.getElementById('speedKey').innerHTML = '<strong>' + window.keySpeed.toUpperCase() + '</strong>';
         document.getElementById('speedBtn').innerHTML = 'Change Key';
-        document.getElementById('su').innerHTML = '<i class="fas fa-redo fa-sm"></i> ' + window.keySpeed.toUpperCase()
+        document.getElementById('su').innerHTML = '<i class="fas fa-forward fa-sm"></i> ' + window.keySpeed.toUpperCase();
+        
     });
 }
 
@@ -69,6 +73,7 @@ function recordSequence5() {
         console.log(window.keyslow);
         document.getElementById('slowKey').innerHTML = '<strong>' + window.keyslow.toUpperCase() + '</strong>';
         document.getElementById('slowBtn').innerHTML = 'Change Key';
-        document.getElementById('sl').innerHTML = '<i class="fas fa-backward fa-sm fa-sm"></i> ' + window.keyslow.toUpperCase()
+        document.getElementById('sl').innerHTML = '<i class="fas fa-backward fa-sm fa-sm"></i> ' + window.keyslow.toUpperCase();
     });
 }
+

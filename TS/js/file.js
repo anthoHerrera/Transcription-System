@@ -3,8 +3,9 @@ var rewind_value = 3.0;
 var forward_value = 3.0;
 var slow_value = 0.5;
 var speed_value = 2.0;
+var flag = false;
 
-var keyPlayPause = 'esc';
+var keyPlayPause = 'esc'
 var keyslow = 'f1';
 var keySpeed = 'f2';
 var keyRewind = 'f3';
@@ -19,35 +20,46 @@ document.getElementById('speedKey').innerHTML = '<strong>' + keySpeed.toUpperCas
 document.getElementById('rewindKey').innerHTML = '<strong>' + keyRewind.toUpperCase() + '</strong>';
 document.getElementById('forwardKey').innerHTML = '<strong>' + keyForward.toUpperCase() + '</strong>';
 
+document.getElementById("nameInput").addEventListener('focus', (event) => {
+    window.flag = true;
+});
+  
+document.getElementById("nameInput").addEventListener('blur', (event) => {
+    window.flag = false;
+});
+
 window.document.addEventListener('keydown', (e) => {
-    e.preventDefault();
+    
+    if(!window.flag) {
+        e.preventDefault();
+    }
+    
+    console.log(e.keyCode);
     Mousetrap.bind(window.keyPlayPause, function() {
-        playVideo();
+        playVideo(); 
+        return false;  
     });
-    Mousetrap.bind(keyslow, function() {
+    Mousetrap.bind(window.keyslow, function() {
         slowDown();
+        return false;
     });
-    Mousetrap.bind(keySpeed, function() {
+    Mousetrap.bind(window.keySpeed, function() {
         speedUp();
+        return false;   
     });
-    Mousetrap.bind(keyRewind, function() {
+    Mousetrap.bind(window.keyRewind, function() {
         rewind();
+        return false;
     });
     Mousetrap.bind(window.keyForward, function() {
         forward();
+        return false;
     });
-    /*if(e.key == 'Escape' ) {
-        playVideo();
-    }else if(e.key == 'F1') {
-        slowDown();
-    }else if(e.key == 'F2') {
-        speedUp();
-    }else if(e.key == 'F3') {
-        rewind();
-    }else if(e.key == 'F4') {
+    Mousetrap.bind(window.keyForward, function() {
         forward();
-    }*/
-
+        return false;
+    });
+    
 });
 
 function loadLocalVideo() {
@@ -118,5 +130,33 @@ function formatTime(seconds) {
     minutes = (minutes >= 10) ? minutes : "0" + minutes;
     seconds = Math.floor(sec % 60);
     seconds = (seconds >= 10) ? seconds : "0" + seconds;
-    return hours + ":" + minutes + ":" + seconds;
+    return '[' + hours + ":" + minutes + ":" + seconds + ']';
+}
+
+function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
+
+function formatDate() {
+    const o_date = new Intl.DateTimeFormat;
+    const f_date = (m_ca, m_it) => Object({...m_ca, [m_it.type]: m_it.value});
+    const m_date = o_date.formatToParts().reduce(f_date, {});
+    return m_date.day + '-' + m_date.month + '-' + m_date.year;
+}
+
+function timeCode(code) {
+    var videofile = document.getElementById("videoLocal");
+    console.log(code.innerHTML);
+    var a = code.replace('[','');
+    var b = a.replace(']','');
+    console.log(b);
+    var stamp = b.split(':')
+    var hh = stamp[0];
+    var min = stamp[1];
+    var sec = stamp[2];
+    console.log(hh);
+    console.log(min);
+    console.log(sec);
+    videofile.currentTime = Number(hh)*3600 + Number(min)*60 + Number(sec);
 }
