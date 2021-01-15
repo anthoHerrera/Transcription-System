@@ -23,39 +23,39 @@ document.getElementById('forwardKey').innerHTML = '<strong>' + keyForward.toUppe
 document.getElementById("nameInput").addEventListener('focus', (event) => {
     window.flag = true;
 });
-  
+
 document.getElementById("nameInput").addEventListener('blur', (event) => {
     window.flag = false;
 });
 
 window.document.addEventListener('keydown', (e) => {
-    
-    if(!window.flag) {
+
+    if (!window.flag) {
         e.preventDefault();
     }
-    
+
     console.log(e.keyCode);
-    Mousetrap.bind(window.keyPlayPause, function() {
-        playVideo(); 
-        return false;  
+    Mousetrap.bind(window.keyPlayPause, function () {
+        playVideo();
+        return false;
     });
-    Mousetrap.bind(window.keyslow, function() {
+    Mousetrap.bind(window.keyslow, function () {
         slowDown();
         return false;
     });
-    Mousetrap.bind(window.keySpeed, function() {
+    Mousetrap.bind(window.keySpeed, function () {
         speedUp();
-        return false;   
+        return false;
     });
-    Mousetrap.bind(window.keyRewind, function() {
+    Mousetrap.bind(window.keyRewind, function () {
         rewind();
         return false;
     });
-    Mousetrap.bind(window.keyForward, function() {
+    Mousetrap.bind(window.keyForward, function () {
         forward();
         return false;
     });
-    
+
 });
 
 function loadLocalVideo() {
@@ -64,14 +64,16 @@ function loadLocalVideo() {
     var selectedLocalVideo = document.getElementById("newFile").files[0];
     currentVideo.setAttribute("src", URL.createObjectURL(selectedLocalVideo));
     var divElement = document.getElementById("test");
-    
+
     if (divElement.style.display === "none") {
         divElement.style.display = "block";
     } else {
-        divElement.style.display = "none";    
+        divElement.style.display = "none";
     }
     document.getElementById("videoLocal").style.display = "block";
     document.getElementById("controls").style.display = "block";
+    document.getElementById("myvid").classList.add("thin_border");
+    document.getElementById("myvid").classList.add("myvideo");
     player.load();
     player.play();
     playing = true;
@@ -82,22 +84,24 @@ function playVideo() {
     var videofile = document.getElementById("videoLocal");
     videofile.playbackRate = 1.0;
     //console.log(formatTime(videofile.currentTime)); timestamp
-    
-    if(playing) {
-        document.getElementById("pausePlay").className = "fas fa-play";
+
+    if (playing) {
+        /*document.getElementById("pausePlay").className = "bi bi-play";*/
+        document.getElementById('pp').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" id = "pausePlay" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" /></svg> ' + window.keyPlayPause.toUpperCase();
         videofile.pause();
         playing = false;
-    }else {
-        document.getElementById("pausePlay").className = "fas fa-pause-circle";
+    } else {
+        //document.getElementById("pausePlay").className = "bi bi-pause-fill";
+        document.getElementById('pp').innerHTML = '<svg xmlns = "http://www.w3.org/2000/svg" width = "20" height = "20"  id = "pausePlay" fill = "currentColor" class="bi bi-pause-fill" viewBox = "0 0 16 16" ><path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" /></svg > ' + window.keyPlayPause.toUpperCase();
         videofile.play();
         playing = true;
     }
-    
+
 }
 
 function slowDown() {
     var videofile = document.getElementById("videoLocal");
-    console.log( window.slow_value);
+    console.log(window.slow_value);
     videofile.playbackRate = window.slow_value;
 }
 function speedUp() {
@@ -129,14 +133,13 @@ function formatTime(seconds) {
     return '[' + hours + ":" + minutes + ":" + seconds + ']';
 }
 
-function destroyClickedElement(event)
-{
+function destroyClickedElement(event) {
     document.body.removeChild(event.target);
 }
 
 function formatDate() {
     const o_date = new Intl.DateTimeFormat;
-    const f_date = (m_ca, m_it) => Object({...m_ca, [m_it.type]: m_it.value});
+    const f_date = (m_ca, m_it) => Object({ ...m_ca, [m_it.type]: m_it.value });
     const m_date = o_date.formatToParts().reduce(f_date, {});
     return m_date.day + '-' + m_date.month + '-' + m_date.year;
 }
@@ -144,8 +147,8 @@ function formatDate() {
 function timeCode(code) {
     var videofile = document.getElementById("videoLocal");
     console.log(code.innerHTML);
-    var a = code.replace('[','');
-    var b = a.replace(']','');
+    var a = code.replace('[', '');
+    var b = a.replace(']', '');
     console.log(b);
     var stamp = b.split(':')
     var hh = stamp[0];
@@ -154,5 +157,5 @@ function timeCode(code) {
     console.log(hh);
     console.log(min);
     console.log(sec);
-    videofile.currentTime = Number(hh)*3600 + Number(min)*60 + Number(sec);
+    videofile.currentTime = Number(hh) * 3600 + Number(min) * 60 + Number(sec);
 }

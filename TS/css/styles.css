@@ -3,6 +3,7 @@
   border: 2px solid black;
   padding: 20px;
   margin-bottom: 50px;
+  
 }
  
 .inputfile {
@@ -17,9 +18,9 @@
 	position: relative;
 	overflow: hidden;
 	display: inline-block;
-  }
-  
-  .bton {
+}
+/*  
+.mbton {
 	border: 2px solid gray;
 	color: gray;
 	background-color: lightgray;
@@ -27,15 +28,15 @@
 	border-radius: 8px;
 	font-size: 20px;
 	font-weight: bold;
-  }
-  
-  .upload-btn-wrapper input[type=file] {
+}
+*/  
+.upload-btn-wrapper input[type=file] {
 	font-size: 100px;
 	position: absolute;
 	left: 0;
 	top: 0;
 	opacity: 0;
-  }
+}
 
 body { 
 	font-family: sans-serif, serif;
@@ -45,21 +46,26 @@ i {
 	font-family: FontAwesome;
 	font-style: normal;
 }
-
+/*
 #controls {
-	margin-left: 6rem;
+	margin-left: 1em;
 }
-
+*/
 #videoLocal {
 	margin-bottom: 15px;
 	background-color: black;
 }
-
+/*
 #re, #sl, #pp, #su, #fw {
-	margin-right: 20px;
+	margin: 0.2em;
+}
+*/
+video {
+	max-width: 100%;
+	height: auto;
 }
 
-#phrase {
-	font-size: 24px;
-	
+.myvideo {
+	background-color: black;
 }
+  
