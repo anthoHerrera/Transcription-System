@@ -1,20 +1,59 @@
 tinymce.init({
     selector: '#editor1',
+    height: 250,
     plugins: 'code',
-    menubar: '',
+    menubar: 'custom',
+    menu: {
+        custom: { title: 'File', items: ' newtrans loadfile' }
+    },
     toolbar: 'bold italic | undo redo | downloadButton code',
 
-
     setup: function (editor) {
+
+        editor.ui.registry.addMenuItem('newtrans', {
+            text: 'New Transcription',
+            onAction: function () {
+                location.reload();
+            }
+        });
+
+        editor.ui.registry.addMenuItem('loadfile', {
+            text: 'Load File',
+            onAction: function () {
+                function readFile(e) {
+                    var file = e.target.files[0];
+                    if (!file) {
+                        return;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var contents = e.target.result;
+                        //displayContents(contents);
+                        editor.insertContent(contents);
+                    };
+                    reader.readAsText(file);
+                }
+
+                document.getElementById('file-input')
+                    .addEventListener('change', readFile, false);
+                document.getElementById('file-input').click();
+            }
+        });
+
         editor.ui.registry.addButton('downloadButton', {
             icon: "save",
             tooltip: 'Download',
             onAction: function (_) {
                 var myContent = tinymce.get("editor1").getContent({ format: "text" });
-                console.log(myContent);
+                var myContentHtml = tinymce.get("editor1").getContent();
+                console.log(myContentHtml);
                 var textToSaveAsBlob = new Blob([myContent], { type: "text/plain" });
                 var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
                 var fileNameToSaveAs = 'transcripcion_' + window.formatDate();
+
+                var textToSaveAsBlob2 = new Blob([myContentHtml], { type: "text/html;charset=utf-8" });
+                var textToSaveAsURL2 = window.URL.createObjectURL(textToSaveAsBlob2);
+                var fileNameToSaveAs2 = 'transcripcion_load_file_' + window.formatDate();
 
                 var downloadLink = document.createElement("a");
                 downloadLink.download = fileNameToSaveAs;
@@ -26,10 +65,20 @@ tinymce.init({
 
                 downloadLink.click();
 
+                var downloadLink2 = document.createElement("a");
+                downloadLink2.download = fileNameToSaveAs2;
+                downloadLink2.innerHTML = "Download File";
+                downloadLink2.href = textToSaveAsURL2;
+                downloadLink2.onclick = window.destroyClickedElement;
+                downloadLink2.style.display = "none";
+                document.body.appendChild(downloadLink2);
+
+                downloadLink2.click();
+
             }
         });
-        
-        /*editor.ui.registry.addButton('AutoTranscriptButton', {
+        /*
+        editor.ui.registry.addButton('AutoTranscriptButton', {
             icon: "temporary-placeholder",
             tooltip: 'AutoTranscrip',
             onAction: function (_) {
@@ -99,10 +148,11 @@ tinymce.init({
 
         });
 
-        editor.on('focus', function(e) {
+        editor.on('focus', function (e) {
             window.flag = true;
         });
-        editor.on('blur', function(e) {
+
+        editor.on('blur', function (e) {
             window.flag = false;
         });
 

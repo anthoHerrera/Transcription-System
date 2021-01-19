@@ -1,4 +1,36 @@
-/* use this to put borders around things... */
+.timer {
+  height: 38px;
+  line-height: 19px;
+  box-shadow: inset 0 -5px 25px rgba(130, 131, 134, 0.76);
+  border-right: 1px solid #333;
+}
+
+.timer {
+  line-height: 38px;
+  font-size: 10px;
+  font-family: monospace;
+  text-shadow: 1px 1px 0px black;
+  color: white;
+  flex: 5;
+  position: relative;
+}
+
+.timer div {
+  position: absolute;
+  background-color: rgba(255,255,255,0.2);
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 38px;
+  z-index: 2;
+}
+
+.timer span {
+  position: absolute;
+  z-index: 3;
+  left: 1em;
+}
+
 .thin_border{
   border: 2px solid black;
   padding: 20px;
@@ -19,17 +51,7 @@
 	overflow: hidden;
 	display: inline-block;
 }
-/*  
-.mbton {
-	border: 2px solid gray;
-	color: gray;
-	background-color: lightgray;
-	padding: 8px 20px;
-	border-radius: 8px;
-	font-size: 20px;
-	font-weight: bold;
-}
-*/  
+
 .upload-btn-wrapper input[type=file] {
 	font-size: 100px;
 	position: absolute;
@@ -46,20 +68,12 @@ i {
 	font-family: FontAwesome;
 	font-style: normal;
 }
-/*
-#controls {
-	margin-left: 1em;
-}
-*/
+
 #videoLocal {
 	margin-bottom: 15px;
 	background-color: black;
 }
-/*
-#re, #sl, #pp, #su, #fw {
-	margin: 0.2em;
-}
-*/
+
 video {
 	max-width: 100%;
 	height: auto;
@@ -68,4 +82,5 @@ video {
 .myvideo {
 	background-color: black;
 }
+
   

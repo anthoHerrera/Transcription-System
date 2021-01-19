@@ -12,7 +12,8 @@ var keyRewind = 'f3';
 var keyForward = 'f4';
 
 document.getElementById("videoLocal").style.display = "none";
-document.getElementById("controls").style.display = "none";
+document.getElementById("barTime").style.display = "none";
+document.getElementById("mycontrols").style.display = "none";
 
 document.getElementById('pauseKey').innerHTML = '<strong>' + keyPlayPause.toUpperCase() + '</strong>';
 document.getElementById('slowKey').innerHTML = '<strong>' + keyslow.toUpperCase() + '</strong>';
@@ -71,7 +72,8 @@ function loadLocalVideo() {
         divElement.style.display = "none";
     }
     document.getElementById("videoLocal").style.display = "block";
-    document.getElementById("controls").style.display = "block";
+    document.getElementById("barTime").style.display = "block";
+    document.getElementById("mycontrols").style.display = "block";
     document.getElementById("myvid").classList.add("thin_border");
     document.getElementById("myvid").classList.add("myvideo");
     player.load();
@@ -159,3 +161,4 @@ function timeCode(code) {
     console.log(sec);
     videofile.currentTime = Number(hh) * 3600 + Number(min) * 60 + Number(sec);
 }
+

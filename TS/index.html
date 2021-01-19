@@ -54,13 +54,21 @@
 
                 </div>
 
-                <div id="myvid">
+                <div id="myvid" class="player">
                     <video controls id="videoLocal">
                         <source id="currentVideo" src="">
                     </video>
+                    <div class="row mb-2" id="barTime">
+                        <div class="timer">
+                            <div></div><span aria-label="timer">
+                                <h5>00:00</h5>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row" id="mycontrols">
 
-                    <div class="row" id="controls">
-                        <button class="btn btn-light btn-sm col-2 offset-sm-1 offset-md-1" onclick="rewind();" title="Rewind" id="re">
+                        <button class="btn btn-light btn-sm col-2 offset-sm-1 offset-md-1" onclick="rewind();"
+                            title="Rewind" id="re">
                             <!--i
                                 class="fas fa-undo fa-sm"></i--><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="20" fill="currentColor" class="bi bi-arrow-counterclockwise"
@@ -85,8 +93,8 @@
                         <button class="btn btn-light btn-sm col-2" onclick="playVideo();" title="Play/Pause" id="pp">
                             <!--i
                                 class="fas fa-pause-circle" id="pausePlay"></i--><svg
-                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"  id="pausePlay"fill="currentColor"
-                                class="bi bi-pause-fill" viewBox="0 0 16 16">
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" id="pausePlay"
+                                fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
                                 <path
                                     d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
                             </svg> ESC
@@ -113,7 +121,7 @@
                             </svg>
                             F4
                         </button>
-                        
+
                     </div>
                 </div>
 
@@ -163,7 +171,7 @@
                     </div>
 
                 </div>
-                
+
 
             </div>
 
@@ -308,30 +316,7 @@
                 </div>
             </div>
         </div>
-
-        <!--Editor-->
-        <!--div class="row thin_border">
-
-            <div class="col-sm-8">
-                <textarea name="editor1" id="editor1"></textarea>
-            </div>
-            <div class="col-sm-4 thin_border">
-                <h3>Snippets</h3>
-                <div id="snippetList">
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" id="nameInput" placeholder="Name">
-                    </div>
-                    <div class="col-sm-5">
-                        <button onclick="addSnippets()" type="button" class="btn btn-primary btn-sm"
-                            id="triggerBtn">assign trigger</button>
-                    </div>
-
-                </div>
-            </div>
-        </div-->
+        <input type="file" id="file-input" style="display:none" accept=".txt, .html"/>
     </div>
 
 </body>
@@ -339,5 +324,6 @@
 <script src="js/menus.js"></script>
 <script src="js/snippets.js"></script>
 <script src="js/editor.js"></script>
+<script src="js/custom-player.js"></script>
 
 </html>
